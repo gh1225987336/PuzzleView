@@ -185,15 +185,14 @@ public class MainActivity extends AppCompatActivity {
     popupMenu.inflate(R.menu.menu_main);
     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
       @Override public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-          case R.id.action_playground:
-            Intent intent = new Intent(MainActivity.this, PlaygroundActivity.class);
-            startActivity(intent);
-            break;
-          case R.id.action_about:
-            showAboutInfo();
-            break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_playground) {
+          Intent intent = new Intent(MainActivity.this, PlaygroundActivity.class);
+          startActivity(intent);
+        } else if (itemId == R.id.action_about) {
+          showAboutInfo();
         }
+
         return false;
       }
     });
