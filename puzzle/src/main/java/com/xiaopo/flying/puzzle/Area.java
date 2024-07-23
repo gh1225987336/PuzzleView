@@ -3,59 +3,60 @@ package com.xiaopo.flying.puzzle;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
+
 import java.util.List;
 
 /**
  * @author wupanjie
  */
 public interface Area {
-  float left();
+    float left();
 
-  float top();
+    float top();
 
-  float right();
+    float right();
 
-  float bottom();
+    float bottom();
 
-  float centerX();
+    float centerX();
 
-  float centerY();
+    float centerY();
 
-  float width();
+    float width();
 
-  float height();
+    float height();
 
-  PointF getCenterPoint();
+    PointF getCenterPoint();
 
-  boolean contains(PointF point);
+    boolean contains(PointF point);
 
-  boolean contains(float x, float y);
+    boolean contains(float x, float y);
 
-  boolean contains(Line line);
+    boolean contains(Line line);
 
-  Path getAreaPath();
+    Path getAreaPath();
 
-  RectF getAreaRect();
+    RectF getAreaRect();
 
-  List<Line> getLines();
+    List<Line> getLines();
 
-  PointF[] getHandleBarPoints(Line line);
+    PointF[] getHandleBarPoints(Line line);
 
-  float radian();
+    float radian();
 
-  void setRadian(float radian);
+    void setRadian(float radian);
 
-  float getPaddingLeft();
+    float getPaddingLeft();
 
-  float getPaddingTop();
+    float getPaddingTop();
 
-  float getPaddingRight();
+    float getPaddingRight();
 
-  float getPaddingBottom();
+    float getPaddingBottom();
 
-  void setPadding(float padding);
+    void setPadding(float padding);
 
-  void setPadding(float paddingLeft, float paddingTop, float paddingRight, float paddingBottom);
+    void setPadding(float paddingLeft, float paddingTop, float paddingRight, float paddingBottom);
 
 }
 

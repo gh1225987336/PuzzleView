@@ -6,47 +6,47 @@ import android.graphics.PointF;
  * @author wupanjie
  */
 public interface Line {
-  enum Direction {
-    HORIZONTAL, VERTICAL
-  }
+    enum Direction {
+        HORIZONTAL, VERTICAL
+    }
 
-  float length();
+    float length();
 
-  PointF startPoint();
+    PointF startPoint();
 
-  PointF endPoint();
+    PointF endPoint();
 
-  Line lowerLine();
+    Line lowerLine();
 
-  Line upperLine();
+    Line upperLine();
 
-  Line attachStartLine();
+    Line attachStartLine();
 
-  Line attachEndLine();
+    Line attachEndLine();
 
-  void setLowerLine(Line lowerLine);
+    void setLowerLine(Line lowerLine);
 
-  void setUpperLine(Line upperLine);
+    void setUpperLine(Line upperLine);
 
-  Direction direction();
+    Direction direction();
 
-  float slope();
+    float slope();
 
-  boolean contains(float x, float y, float extra);
+    boolean contains(float x, float y, float extra);
 
-  void prepareMove();
+    void prepareMove();
 
-  boolean move(float offset, float extra);
+    boolean move(float offset, float extra);
 
-  void update(float layoutWidth, float layoutHeight);
+    void update(float layoutWidth, float layoutHeight);
 
-  float minX();
+    float minX();
 
-  float maxX();
+    float maxX();
 
-  float minY();
+    float minY();
 
-  float maxY();
+    float maxY();
 
-  void offset(float x, float y);
+    void offset(float x, float y);
 }

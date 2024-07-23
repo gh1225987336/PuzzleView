@@ -1,6 +1,7 @@
 package com.xiaopo.flying.puzzle.slant;
 
 import android.graphics.PointF;
+
 import com.xiaopo.flying.puzzle.Line;
 
 import static com.xiaopo.flying.puzzle.slant.SlantUtils.intersectionOfLines;
@@ -17,137 +18,156 @@ import static java.lang.Math.sqrt;
  * @author wupanjie
  */
 class SlantLine implements Line {
-  CrossoverPointF start;
-  CrossoverPointF end;
+    CrossoverPointF start;
+    CrossoverPointF end;
 
-  // 移动前的点
-  private PointF previousStart = new PointF();
-  private PointF previousEnd = new PointF();
+    // 移动前的点
+    private PointF previousStart = new PointF();
+    private PointF previousEnd = new PointF();
 
-  public final Line.Direction direction;
+    public final Line.Direction direction;
 
-  SlantLine attachLineStart;
-  SlantLine attachLineEnd;
+    SlantLine attachLineStart;
+    SlantLine attachLineEnd;
 
-  Line upperLine;
-  Line lowerLine;
+    Line upperLine;
+    Line lowerLine;
 
-  SlantLine(Line.Direction direction) {
-    this.direction = direction;
-  }
-
-  SlantLine(CrossoverPointF start, CrossoverPointF end, Line.Direction direction) {
-    this.start = start;
-    this.end = end;
-    this.direction = direction;
-  }
-
-  public float length() {
-    return (float) sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
-  }
-
-  @Override public PointF startPoint() {
-    return start;
-  }
-
-  @Override public PointF endPoint() {
-    return end;
-  }
-
-  @Override public Line lowerLine() {
-    return lowerLine;
-  }
-
-  @Override public Line upperLine() {
-    return upperLine;
-  }
-
-  @Override public Line attachStartLine() {
-    return attachLineStart;
-  }
-
-  @Override public Line attachEndLine() {
-    return attachLineEnd;
-  }
-
-  @Override public void setLowerLine(Line lowerLine) {
-    this.lowerLine = lowerLine;
-  }
-
-  @Override public void setUpperLine(Line upperLine) {
-    this.upperLine = upperLine;
-  }
-
-  @Override public Direction direction() {
-    return direction;
-  }
-
-  @Override public float slope() {
-    return SlantUtils.calculateSlope(this);
-  }
-
-  public boolean contains(float x, float y, float extra) {
-    return SlantUtils.contains(this, x, y, extra);
-  }
-
-  @Override public boolean move(float offset, float extra) {
-    if (direction == Line.Direction.HORIZONTAL) {
-      if (previousStart.y + offset < lowerLine.maxY() + extra
-          || previousStart.y + offset > upperLine.minY() - extra
-          || previousEnd.y + offset < lowerLine.maxY() + extra
-          || previousEnd.y + offset > upperLine.minY() - extra) {
-        return false;
-      }
-
-      start.y = previousStart.y + offset;
-      end.y = previousEnd.y + offset;
-    } else {
-      if (previousStart.x + offset < lowerLine.maxX() + extra
-          || previousStart.x + offset > upperLine.minX() - extra
-          || previousEnd.x + offset < lowerLine.maxX() + extra
-          || previousEnd.x + offset > upperLine.minX() - extra) {
-        return false;
-      }
-
-      start.x = previousStart.x + offset;
-      end.x = previousEnd.x + offset;
+    SlantLine(Line.Direction direction) {
+        this.direction = direction;
     }
 
-    return true;
-  }
+    SlantLine(CrossoverPointF start, CrossoverPointF end, Line.Direction direction) {
+        this.start = start;
+        this.end = end;
+        this.direction = direction;
+    }
 
-  @Override public void prepareMove() {
-    previousStart.set(start);
-    previousEnd.set(end);
-  }
+    public float length() {
+        return (float) sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
+    }
 
-  @Override public void update(float layoutWidth, float layoutHeight) {
-    intersectionOfLines(start, this, attachLineStart);
-    intersectionOfLines(end, this, attachLineEnd);
-  }
+    @Override
+    public PointF startPoint() {
+        return start;
+    }
 
-  @Override public float minX() {
-    return min(start.x, end.x);
-  }
+    @Override
+    public PointF endPoint() {
+        return end;
+    }
 
-  @Override public float maxX() {
-    return max(start.x, end.x);
-  }
+    @Override
+    public Line lowerLine() {
+        return lowerLine;
+    }
 
-  @Override public float minY() {
-    return min(start.y, end.y);
-  }
+    @Override
+    public Line upperLine() {
+        return upperLine;
+    }
 
-  @Override public float maxY() {
-    return max(start.y, end.y);
-  }
+    @Override
+    public Line attachStartLine() {
+        return attachLineStart;
+    }
 
-  @Override public void offset(float x, float y) {
-    start.offset(x, y);
-    end.offset(x, y);
-  }
+    @Override
+    public Line attachEndLine() {
+        return attachLineEnd;
+    }
 
-  @Override public String toString() {
-    return "start --> " + start.toString() + ",end --> " + end.toString();
-  }
+    @Override
+    public void setLowerLine(Line lowerLine) {
+        this.lowerLine = lowerLine;
+    }
+
+    @Override
+    public void setUpperLine(Line upperLine) {
+        this.upperLine = upperLine;
+    }
+
+    @Override
+    public Direction direction() {
+        return direction;
+    }
+
+    @Override
+    public float slope() {
+        return SlantUtils.calculateSlope(this);
+    }
+
+    public boolean contains(float x, float y, float extra) {
+        return SlantUtils.contains(this, x, y, extra);
+    }
+
+    @Override
+    public boolean move(float offset, float extra) {
+        if (direction == Line.Direction.HORIZONTAL) {
+            if (previousStart.y + offset < lowerLine.maxY() + extra
+                    || previousStart.y + offset > upperLine.minY() - extra
+                    || previousEnd.y + offset < lowerLine.maxY() + extra
+                    || previousEnd.y + offset > upperLine.minY() - extra) {
+                return false;
+            }
+
+            start.y = previousStart.y + offset;
+            end.y = previousEnd.y + offset;
+        } else {
+            if (previousStart.x + offset < lowerLine.maxX() + extra
+                    || previousStart.x + offset > upperLine.minX() - extra
+                    || previousEnd.x + offset < lowerLine.maxX() + extra
+                    || previousEnd.x + offset > upperLine.minX() - extra) {
+                return false;
+            }
+
+            start.x = previousStart.x + offset;
+            end.x = previousEnd.x + offset;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void prepareMove() {
+        previousStart.set(start);
+        previousEnd.set(end);
+    }
+
+    @Override
+    public void update(float layoutWidth, float layoutHeight) {
+        intersectionOfLines(start, this, attachLineStart);
+        intersectionOfLines(end, this, attachLineEnd);
+    }
+
+    @Override
+    public float minX() {
+        return min(start.x, end.x);
+    }
+
+    @Override
+    public float maxX() {
+        return max(start.x, end.x);
+    }
+
+    @Override
+    public float minY() {
+        return min(start.y, end.y);
+    }
+
+    @Override
+    public float maxY() {
+        return max(start.y, end.y);
+    }
+
+    @Override
+    public void offset(float x, float y) {
+        start.offset(x, y);
+        end.offset(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "start --> " + start.toString() + ",end --> " + end.toString();
+    }
 }
